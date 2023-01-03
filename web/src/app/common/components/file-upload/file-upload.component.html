@@ -1,0 +1,25 @@
+<div class="upload"
+  [matTooltip]="bDragEnabled ? 'Glisser et déposé un document ici' : null"
+  dragAndDrop
+  [bDragEnabled]="true"
+  (fileDropped)="uploadFile($event)"
+>
+  <div class="icon">
+    <mat-icon>backup</mat-icon>
+  </div>
+  <div class="contentText">
+      <input
+      type="file"
+      #file
+      style="display: none"
+      (change)="onFilesAdded()"
+      multiple
+    />
+    <div class="text">Déposez vos fichiers à envoyer</div>
+
+    <button class="parcourir" mat-button [disabled]="!bDragEnabled" (click)="addFiles()">
+        Ou cliquez ici
+    </button>
+    <div class="err">{{messageErreur}}</div>
+  </div>
+</div>

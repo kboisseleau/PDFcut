@@ -1,0 +1,38 @@
+:host {
+
+    margin: 10px;
+    height: 100%;
+  
+    .contenue-image {
+      display: flex;
+      flex-direction: row;
+      flex-grow: 1;
+      margin: 10px;
+  
+      .icon {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+  
+        mat-icon {
+          cursor: pointer;
+        }
+      }
+  
+  
+      img {
+        max-width: 120px;
+        max-height: 120px;
+        box-shadow: 4px 4px 6px lightgrey;
+        cursor: move;
+        transition: 0.3s;
+      }
+  
+      img:hover {opacity: 0.7;}
+    }
+    /* Style the Image Used to Trigger the Modal */
+  
+    /* The Modal (background) */
+  
+  }
+  

@@ -1,0 +1,61 @@
+.mat-icon {
+  font-size: 20px;
+}
+:host {
+  .upload {
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    padding: 15px;
+    padding-left: 180px;
+    padding-right: 180px;
+    color: #555;
+    border: 2px dashed #555;
+    border-radius: 7px;
+    cursor: default;
+
+    .icon {
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      align-items: center;
+      // align-content: center;
+      margin-right: 10px;
+
+      .mat-icon {
+        font-size: 50px;
+      }
+    }
+    .contentText{
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      // align-content: center;
+      align-items: center;
+
+      .text {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        font-size: 20px;
+        font-weight: bold;
+        // align-content: center;
+        align-items: center;
+        margin-top: 40px;
+      }
+      .parcourir {
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        // align-content: center;
+        align-items: center;
+        margin-top: 10px;
+      }
+
+      .err {
+        color: red;
+      }
+    }
+
+  }
+}

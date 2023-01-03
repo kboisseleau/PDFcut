@@ -1,0 +1,12 @@
+<div class="contenue-image">
+    <div class="image">
+      <img *ngIf="page?.src" [src]="page.src | safeUrl:'url'">
+    </div>
+    <div class="icon">
+      <mat-icon [matTooltip]="'Aperçu'"*ngIf="page?.src" (click)="zoom()">pageview</mat-icon>
+      <mat-icon [matTooltip]="'Dupliquer'" *ngIf="page?.src" (click)="duplique(page)">content_copy</mat-icon>
+      <mat-icon [matTooltip]="'Pivoter la page'" (click)="pivote(page)">rotate_right</mat-icon>
+      <mat-icon [matTooltip]="'Supprimer'" *ngIf="page?.src" (click)="remove(page.title)">delete</mat-icon>
+    </div>
+  </div>
+  

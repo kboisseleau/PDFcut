@@ -1,0 +1,32 @@
+<div class="content">
+    <div class="card">
+      <mat-card *ngFor="let document of decoupage">
+          <mat-card-content>
+          <div cdkDropList cdkDropListOrientation="horizontal" id="{{document.id}}" [cdkDropListData]="document.pagelist"
+  
+            [cdkDropListConnectedTo]="connectedTo" class="item-list" cdkDragHandle="drag($event)" (cdkDropListDropped)="drop($event)">
+  
+            <div class="item-box" *ngFor="let page of document.pagelist" cdkDrag>
+              <app-miniature [page]="page" (dupliquer)="dupliquer($event, document)" (pivoter)="pivoter($event, document)" (delete)="remove($event)"></app-miniature>
+            </div>
+  
+          </div>
+  
+            <div class="selection" *ngIf="document.pagelist.length">
+  
+              <div class="designation">
+                <mat-form-field>
+                  <mat-label>
+                    Designation
+                   </mat-label>
+                  <input matInput type="text" [(ngModel)]="document.designation" required>
+                  <mat-error></mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </mat-card-content>
+      </mat-card>
+    </div>
+  
+  </div>
+  
