@@ -4,12 +4,12 @@ import { DataSource } from 'typeorm'
 // Service manager
 import { FichierManagerService } from './fichier-manager/fichier-manager.service'
 
-const host = process.env.DB_HOST || 'localhost'
-const username = process.env.DB_USERNAME || 'postgres'
-const password = process.env.DB_PASSWORD || 'Dsd445a1313__!'
-const port = process.env.DB_PORT || '5432'
-const dbName = process.env.DB_NAME || 'dev'
-const dbPath = process.env.DBPATH || 'dist/db'
+const host = process.env.DB_HOST
+const username = process.env.DB_USERNAME
+const password = process.env.DB_PASSWORD
+const port = process.env.DB_PORT
+const dbName = process.env.DB_NAME
+const dbPath = process.env.DBPATH
 const entitiesPath = `${dbPath}/entities/**/*.js`
 console.log(username, password)
 

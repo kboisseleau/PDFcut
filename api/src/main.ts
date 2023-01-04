@@ -3,6 +3,9 @@ import { AppModule } from './app.module'
 import appDataSource from '../ormconfig'
 import helmet from 'helmet'
 import { json, urlencoded } from 'body-parser'
+import * as dotenv from 'dotenv'
+
+dotenv.config()
 
 async function bootstrap () {
   const app = await NestFactory.create(AppModule, {

@@ -1,0 +1,55 @@
+// @import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@use '@angular/material' as mat;
+
+
+@include mat.core();
+
+$theme-warn: mat.define-palette(mat.$red-palette);
+
+$cutpdf-cyan-theme-primary: mat.define-palette(mat.$cyan-palette, 600);
+$cutpdf-cyan-theme-accent: mat.define-palette(mat.$pink-palette, 400);
+$cutpdf-cyan-theme: mat.define-light-theme($cutpdf-cyan-theme-primary, $cutpdf-cyan-theme-accent, $theme-warn);
+$cutpdf-dark-cyan-theme: mat.define-dark-theme($cutpdf-cyan-theme-primary, $cutpdf-cyan-theme-accent, $theme-warn);
+
+$cutpdf-blue-theme-primary: mat.define-palette(mat.$blue-palette, 800);
+$cutpdf-blue-theme-accent: mat.define-palette(mat.$blue-palette, 600);
+$cutpdf-blue-theme: mat.define-light-theme($cutpdf-blue-theme-primary, $cutpdf-blue-theme-accent, $theme-warn);
+$cutpdf-dark-blue-theme: mat.define-dark-theme($cutpdf-blue-theme-primary, $cutpdf-blue-theme-accent, $theme-warn);
+
+$cutpdf-indigo-theme-primary: mat.define-palette(mat.$indigo-palette, 400);
+$cutpdf-indigo-theme-accent: mat.define-palette(mat.$grey-palette, 700);
+$cutpdf-indigo-theme: mat.define-light-theme($cutpdf-indigo-theme-primary, $cutpdf-indigo-theme-accent, $theme-warn);
+$cutpdf-dark-indigo-theme: mat.define-dark-theme($cutpdf-indigo-theme-primary, $cutpdf-indigo-theme-accent, $theme-warn);
+
+@mixin app-theme($theme) {
+  @include mat.all-component-themes($theme);
+
+}
+
+// Ligth themes
+
+.cyan-theme {
+  @include app-theme($cutpdf-cyan-theme);
+}
+
+.blue-theme {
+  @include app-theme($cutpdf-blue-theme);
+}
+
+.indigo-theme {
+  @include app-theme($cutpdf-indigo-theme);
+}
+
+// Dark themes
+
+.dark-cyan-theme {
+  @include app-theme($cutpdf-dark-cyan-theme);
+}
+
+.dark-blue-theme {
+  @include app-theme($cutpdf-dark-blue-theme);
+}
+
+.dark-indigo-theme {
+  @include app-theme($cutpdf-dark-indigo-theme);
+}
