@@ -1,4 +1,5 @@
 <div class="content">
+  <button mat-raised-button *ngIf="decoupage" (click)="enregistre()">Export</button>
     <div class="card">
       <mat-card *ngFor="let document of decoupage">
           <mat-card-content>
@@ -20,7 +21,7 @@
                     Designation
                    </mat-label>
                   <input matInput type="text" [(ngModel)]="document.designation" required>
-                  <mat-error></mat-error>
+                  <mat-error pdfcutMatError></mat-error>
                 </mat-form-field>
               </div>
             </div>

@@ -37,6 +37,9 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
 @NgModule({
   declarations: [],
   exports: [
+    MatTabsModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatCheckboxModule,
     MatButtonModule,
     MatInputModule,
@@ -70,9 +73,14 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
     MatPaginatorModule,
     MatBadgeModule,
     MatDividerModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule
   ],
   imports: [
+    MatTabsModule,
+    MatSidenavModule,
+    MatToolbarModule,
     MatDividerModule,
     MatFormFieldModule,
     MatAutocompleteModule,
@@ -91,7 +99,10 @@ import { MatBottomSheetModule } from '@angular/material/bottom-sheet'
     MatTabsModule,
     MatListModule,
     MatSlideToggleModule,
-    MatProgressBarModule
+    MatProgressBarModule,
+    MatSnackBarModule,
+    MatProgressSpinnerModule,
+    MatToolbarModule
   ]
 })
 export class MaterialModule { }

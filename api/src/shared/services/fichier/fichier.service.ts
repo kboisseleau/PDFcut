@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable } from '@nestjs/common'
-import { copyFileSync, mkdirSync } from 'fs'
+import { copyFileSync, fstat, mkdirSync } from 'fs'
 import { Fichier } from '../../../../db/entities/Fichier'
 import { FichierManagerService } from '../../../db-manager/fichier-manager/fichier-manager.service'
 import * as path from 'path'
@@ -42,6 +42,10 @@ export class FichierService {
     await promises.writeFile(pathFile, options.fichier.buffer)
 
     return pathFile
+  }
+
+  public async recupererFichier (pathFile: string): Promise<Buffer> {
+    return promises.readFile(pathFile)
   }
 
   private _uuid (): string {

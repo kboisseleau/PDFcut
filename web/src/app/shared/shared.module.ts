@@ -6,6 +6,7 @@ import { ScrollingModule } from '@angular/cdk/scrolling'
 import { WebCommonModule } from '../common/web-common.module '
 import { SafeUrlPipe } from './pipes/safe-url.pipe'
 import { DragDropModule } from '@angular/cdk/drag-drop'
+import { FieldErrorDirective } from './directives/field-error.directive'
 
 @NgModule({
   exports: [
@@ -15,7 +16,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
     SafeUrlPipe,
     ScrollingModule,
     WebCommonModule,
-    DragDropModule
+    DragDropModule,
+    FieldErrorDirective
   ],
   imports: [
     WebCommonModule,
@@ -25,7 +27,8 @@ import { DragDropModule } from '@angular/cdk/drag-drop'
     DragDropModule
   ],
   declarations: [
-    SafeUrlPipe
+    SafeUrlPipe,
+    FieldErrorDirective
   ],
   providers: [
     // { provide: MAT_MOMENT_DATE_ADAPTER_OPTIONS, useValue: { useUtc: true } }

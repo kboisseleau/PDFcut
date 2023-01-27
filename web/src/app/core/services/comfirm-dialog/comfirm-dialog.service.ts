@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { lastValueFrom } from 'rxjs'
-import { ComfirmDialogComponent } from '../components/comfirm-dialog/comfirm-dialog.component'
+import { ComfirmDialogComponent } from '../../components/comfirm-dialog/comfirm-dialog.component'
 
 @Injectable({
   providedIn: 'root'

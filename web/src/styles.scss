@@ -1,5 +1,25 @@
 /* You can add global styles to this file, and also import other style files */
 @import './theme.scss';
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* for sidenav to take a whole page */
+html, body { 
+    margin: 0;
+    height: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif; 
+}
+
+.success-snackbar {
+    background: #7ee23b;
+    color: #fff;
+}
+
+.error-snackbar {
+    background: #c33357;
+    color: #fff;
+}
+
+.warning-snackbar {
+    background: #c38933;
+    color: #fff;
+}

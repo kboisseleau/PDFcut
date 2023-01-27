@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core'
 import { RouterModule, Routes } from '@angular/router'
 
 const routes: Routes = [
-  { path: 'accueil', loadChildren: () => import('../public/public.module').then(m => m.PublicModule) }
+  { path: '', loadChildren: () => import('../public/public.module').then(m => m.PublicModule) }
 ]
 
 @NgModule({

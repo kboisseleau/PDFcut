@@ -1,8 +1,10 @@
-import { Controller, Get, Post, Body, Param, Put, Delete, UseInterceptors, UploadedFile, Res, Query, UploadedFiles, BadRequestException, ForbiddenException } from '@nestjs/common'
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express'
+import { Controller, Post, Body, UseInterceptors, UploadedFile, Res, BadRequestException, Put } from '@nestjs/common'
+import { FileInterceptor } from '@nestjs/platform-express'
 import { ApiTags, ApiOperation } from '@nestjs/swagger'
 import { Response } from 'express'
 import * as multer from 'multer'
+import { AjoutDocumentDto } from '../../dto/document/ajout-document.dto'
+import { PageListDto } from '../../dto/document/page-list.dto'
 import { DocumentService } from '../../services/document/document.service'
 
 @Controller('document')
@@ -29,4 +31,18 @@ export class DocumentController {
   async cutPdf (@UploadedFile() oFichier: Express.Multer.File): Promise<unknown> {
     return this._documentService.cutPdf(oFichier)
   }
+
+  @Post('export/cut/pdf')
+  ajoutDocument (@Res() res: Response, @Body() body: AjoutDocumentDto): Promise<void> {
+    return this._documentService.ajoutDocument(res, body)
+  }
+
+  @Put('cut/rotation')
+  @ApiTags('document')
+  @ApiOperation({ summary: 'Pivoter une page' })
+  async kinRotationPage (@Body() body: PageListDto): Promise<PageListDto> {
+
+    return this._documentService.rotationPage(body)
+  }
+
 }
