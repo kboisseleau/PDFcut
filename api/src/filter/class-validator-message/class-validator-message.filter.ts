@@ -8,7 +8,6 @@ export class ClassValidatorMessageFilter implements ExceptionFilter {
     const ctx = host.switchToHttp()
     const response = ctx.getResponse<Response>()
     const status = exception.getStatus()
-    
     if (status === 422) {
       const error: { message: string, custom: string } = exception.getResponse() as { message: string, custom: string }
 

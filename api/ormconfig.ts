@@ -1,14 +1,15 @@
+import { TableV0011676544716389 } from 'db/migration/1676544716389-Table-V001'
 import { DataSource } from 'typeorm'
 
-const host = process.env.DB_HOST
-const username = process.env.DB_USERNAME
-const password = process.env.DB_PASSWORD
-const port = process.env.DB_PORT
-const dbName = process.env.DB_NAME
-const dbPath = process.env.DBPATH
+const host = process.env.DB_HOST || 'localhost'
+const username = process.env.DB_USERNAME || 'postgres'
+const password = process.env.DB_PASSWORD || 'postgres__!'
+const port = process.env.DB_PORT || '5432'
+const dbName = process.env.DB_NAME || 'dev'
+const dbPath = process.env.DBPATH || 'dist/db'
 
 const entitiesPath = `${dbPath}/entities/**/*.js`
-const migrationssPath = `${dbPath}/migration/*.js`
+const migrationssPath = `${dbPath}/migration/*.{js,ts}`
 const appDataSource = new DataSource({
   type: 'postgres',
   host,
@@ -21,7 +22,7 @@ const appDataSource = new DataSource({
   logging: false,
   entities: [ entitiesPath ],
   migrationsTableName: 'migration_PDFcut',
-  migrations: [ migrationssPath ]
+  migrations: [ TableV0011676544716389 ]
 })
 
 export default appDataSource

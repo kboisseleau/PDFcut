@@ -3,6 +3,7 @@ import { TypeOrmModule } from '@nestjs/typeorm'
 
 // Service manager
 import { FichierManagerService } from './fichier-manager/fichier-manager.service'
+import { UtilisateurManagerService } from './utilisateur-manager/utilisateur-manager.service'
 
 const host = process.env.DB_HOST || 'localhost'
 const username = process.env.DB_USERNAME || 'postgres'
@@ -29,10 +30,12 @@ const entitiesPath = `${dbPath}/entities/**/*.js`
     })
   ],
   providers: [
-    FichierManagerService
+    FichierManagerService,
+    UtilisateurManagerService
   ],
   exports: [
-    FichierManagerService
+    FichierManagerService,
+    UtilisateurManagerService
   ]
 })
 export class DbManagerModule {}

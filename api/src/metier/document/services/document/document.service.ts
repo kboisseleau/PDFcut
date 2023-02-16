@@ -18,6 +18,7 @@ import { DecoupageResponse } from '../../dto/document/decoupage-response.interfa
 // DTO
 import { AjoutDocumentDto } from '../../dto/document/ajout-document.dto'
 import { PageListDto } from '../../dto/document/page-list.dto'
+import { DocumentDto } from '../../dto/document/document.dto'
 
 @Injectable()
 export class DocumentService {
@@ -84,58 +85,12 @@ export class DocumentService {
   }
 
   public async ajoutDocument (res: Response, body: AjoutDocumentDto): Promise<void> {
-    /*
-    const mapPieces = body.toDocument.map(doc => {
-      if (doc.pagelist.length) {
-        return doc.idLstPiece
-      }
-    })
-    const toIdLstPieces = mapPieces.filter(id => id !== undefined)
-    const duplicate = (new Set(toIdLstPieces).size !== toIdLstPieces.length)
-    if (duplicate) {
-      // throw new BadRequestException('Vous ne pouvez pas associer plusieurs documents à la même pièce : faites glisser les pages à réunir dans le même document (attention à l\'ordre des pages !)"')
-    }
-    */
-    // Test si des pièces identiques existes, le test ne s'applique pas pour les pièces modificatives
     const zip = new JSZip()
 
     for (const doc of body.toDocument) {
       if (doc.pagelist?.length) {
         try {
-          const pdfDoc = await PDFDocument.create()
-
-          let buffer = (await this._fichierService.recupererFichier(doc.pagelist[0].designation)).buffer
-          if (doc.pagelist.length > 1) {
-            const firstPdf = await PDFDocument.load(buffer, { ignoreEncryption: true })
-            const [ copyPage1 ] = await pdfDoc.copyPages(firstPdf, [ 0 ])
-
-            pdfDoc.addPage(copyPage1)
-            doc.pagelist.splice(0, 1)
-
-            for (const page of doc.pagelist) {
-
-              const bufferPage = (await this._fichierService.recupererFichier(page.designation)).buffer
-
-              const secondPdf = await PDFDocument.load(bufferPage, { ignoreEncryption: true })
-              const [ copyPage2 ] = await pdfDoc.copyPages(secondPdf, [ 0 ])
-
-              pdfDoc.addPage(copyPage2)
-
-            }
-
-            const pdfBytes = await pdfDoc.save()
-            const bufferPdf = Buffer.from(pdfBytes)
-
-            const cheminFichierPdfAjoute = await this._fichierService.ajouterFichier({
-              fichier: {
-                buffer: bufferPdf
-              },
-              nom: `.pdf`,
-              repertoireHorodatage: true
-            })
-
-            buffer = (await this._fichierService.recupererFichier(cheminFichierPdfAjoute)).buffer
-          }
+          const buffer = await this._buildPdf(doc)
 
           zip.file(`${doc.designation}.pdf`, buffer, { binary: true })
 
@@ -150,6 +105,53 @@ export class DocumentService {
     const fichier = new FichierExportable(zipUint8array)
 
     fichier.sendAsZip(res)
+  }
+
+  private async _buildPdf (doc: DocumentDto): Promise<ArrayBufferLike> {
+    const pdfDoc = await PDFDocument.create()
+    const bufferFirstPage = (await this._fichierService.recupererFichier(doc.pagelist[0].designation)).buffer
+
+    if (doc.pagelist.length > 1) {
+      await this._addFirstPage(pdfDoc, bufferFirstPage, doc)
+
+      for (const page of doc.pagelist) { 
+        await this._addAllPageOfPageList(pdfDoc, page)
+      }
+
+      return await this._savePdfAndGetBuffer(pdfDoc)
+    }
+  }
+
+  private async _savePdfAndGetBuffer (pdfDoc: PDFDocument): Promise<ArrayBufferLike> {
+    const pdfBytes = await pdfDoc.save()
+    const bufferPdf = Buffer.from(pdfBytes)
+
+    const cheminFichierPdfAjoute = await this._fichierService.ajouterFichier({
+      fichier: {
+        buffer: bufferPdf
+      },
+      nom: `.pdf`,
+      repertoireHorodatage: true
+    })
+
+    return (await this._fichierService.recupererFichier(cheminFichierPdfAjoute)).buffer
+  }
+
+  private async _addAllPageOfPageList (pdfDoc: PDFDocument, page: PageListDto) {
+    const bufferPage = (await this._fichierService.recupererFichier(page.designation)).buffer
+
+    const secondPdf = await PDFDocument.load(bufferPage, { ignoreEncryption: true })
+    const [ copyPage2 ] = await pdfDoc.copyPages(secondPdf, [ 0 ])
+
+    pdfDoc.addPage(copyPage2)
+  }
+
+  private async _addFirstPage (pdfDoc: PDFDocument, buffer: ArrayBufferLike, doc: DocumentDto) {
+    const firstPdf = await PDFDocument.load(buffer, { ignoreEncryption: true })
+    const [ copyPage1 ] = await pdfDoc.copyPages(firstPdf, [ 0 ])
+
+    pdfDoc.addPage(copyPage1)
+    doc.pagelist.splice(0, 1)
   }
 
   public async rotationPage (body: PageListDto): Promise<PageListDto> {

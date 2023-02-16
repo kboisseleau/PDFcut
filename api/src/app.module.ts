@@ -3,17 +3,19 @@ import { ConfigModule } from '@nestjs/config'
 import { APP_FILTER } from '@nestjs/core'
 import { AppController } from './app.controller'
 import { AppService } from './app.service'
-import { DbManagerModule } from './db-manager/db-manager.module'
 import { ClassValidatorMessageFilter } from './filter/class-validator-message/class-validator-message.filter'
 import { MetierModule } from './metier/metier.module'
 import { SharedModule } from './shared/shared.module'
+import { AuthentificationModule } from './authentification/authentification.module'
+import { UtilisateurModule } from './utilisateur/utilisateur.module'
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     MetierModule,
     SharedModule,
-    DbManagerModule
+    AuthentificationModule,
+    UtilisateurModule
   ],
   controllers: [ AppController ],
   providers: [

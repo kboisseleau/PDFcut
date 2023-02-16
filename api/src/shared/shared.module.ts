@@ -7,7 +7,8 @@ import { FichierService } from './services/fichier/fichier.service'
     DbManagerModule
   ],
   exports: [
-    FichierService
+    FichierService,
+    DbManagerModule
   ],
   controllers: [],
   providers: [
